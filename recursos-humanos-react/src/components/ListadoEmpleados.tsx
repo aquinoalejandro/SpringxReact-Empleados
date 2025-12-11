@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { NumericFormat } from 'react-number-format';
 
+
   export default function ListadoEmpleados() {
   const [Empleados, setEmpleados] = useState([{
     idEmpleado: 0,
@@ -9,6 +10,11 @@ import { NumericFormat } from 'react-number-format';
     departamento: "",
     sueldo: 0
   }]);
+
+
+
+
+
 
   useEffect(() => {
     axios.get("http://localhost:8081/rh-app/empleados")
@@ -27,6 +33,7 @@ import { NumericFormat } from 'react-number-format';
 
   return (
     <div className='continer' style={{width: '100%', display: 'flex'}}>
+
       <table className="table table-striped table-hover table-dark">
         <thead>
           <tr>
