@@ -48,7 +48,7 @@ import { NumericFormat } from 'react-number-format';
                 thousandSeparator={'.'}
                 decimalSeparator={','}
                 prefix={'$'}
-
+                decimalScale={2} fixedDecimalScale
               /></td>
             </tr>
           ))}
