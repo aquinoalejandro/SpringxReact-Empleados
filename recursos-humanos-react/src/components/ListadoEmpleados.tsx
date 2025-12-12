@@ -1,50 +1,32 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import React, { useEffect } from 'react'
 import { NumericFormat } from 'react-number-format';
+import { useEmpleadoStore } from '../store/EmpleadoStore';
 
 
   export default function ListadoEmpleados() {
-  const [Empleados, setEmpleados] = useState([{
-    idEmpleado: 0,
-    nombre: "",
-    departamento: "",
-    sueldo: 0
-  }]);
 
+  const empleados = useEmpleadoStore(state => state.empleados);
+  const fetchEmpleados = useEmpleadoStore(state => state.fetchEmpleados);
 
-
-
-
-
+  // aca lo que hago es que cargo los empleados al iniciar
   useEffect(() => {
-    axios.get("http://localhost:8081/rh-app/empleados")
-      .then((response) => {
-        setEmpleados(response.data);
-        console.log(Empleados);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    fetchEmpleados()
   }, []);
 
-  useEffect(() => {
-    console.log(Empleados);
-  }, [Empleados]);
-
   return (
-    <div className='continer' style={{width: '100%', display: 'flex'}}>
+    <div className='container scrollspy-example bg-body-tertiary p-3 rounded-2 overflow-auto' style={{ height: "400px" }}>
 
       <table className="table table-striped table-hover table-dark">
         <thead>
           <tr>
             <th scope="col">Id</th>
             <th scope="col">Empleado</th>
-            <th scope="col">Departmento</th>
+            <th scope="col">Departamento</th>
             <th scope="col">Sueldo</th>
           </tr>
         </thead>
         <tbody>
-          {Empleados.map((empleado) => (
+          {empleados.map((empleado : any) => (
             <tr key={empleado.idEmpleado}>
               <th scope="row">{empleado.idEmpleado}</th>
               <td>{empleado.nombre}</td>
@@ -61,6 +43,8 @@ import { NumericFormat } from 'react-number-format';
           ))}
         </tbody>
       </table>
+
+
     </div>
   )
 }

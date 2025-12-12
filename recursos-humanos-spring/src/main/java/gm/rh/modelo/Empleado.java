@@ -17,8 +17,9 @@ import lombok.ToString;
 public class Empleado {
     @Id // INDICA QUE ES LA PRIMARY KEY
     @GeneratedValue(strategy = GenerationType.IDENTITY) // GENERA UN ID AUTOINCREMENTABLE
-    Integer idEmpleado;
-    String nombre;
-    String departamento;
-    Double sueldo;
+    private Integer idEmpleado;
+
+    private String nombre;
+    private String departamento;
+    private Double sueldo;
 }
