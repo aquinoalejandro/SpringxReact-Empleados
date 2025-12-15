@@ -44,15 +44,17 @@ public class EmpleadoControlador {
     }
 
     @DeleteMapping("/empleado/{id}")
-    public void eliminarEmpleado(@PathVariable Integer id){
+    public ResponseEntity<Void> eliminarEmpleado(@PathVariable Integer id){
         Empleado empleado = empleadoServicio.buscarEmpleadoPorId(id);
         if (empleado == null)
             throw new RecursoNoEncontradoExcepcion("No se encontro el id: " + id);
         empleadoServicio.eliminarEmpleado(empleado);
+        return ResponseEntity.noContent().build();
     }
 
+
     @PutMapping("/empleado/{id}")
-    public Empleado actualizarEmpleado(@PathVariable Integer id, @RequestBody Empleado empleado){
+    public ResponseEntity<Empleado> actualizarEmpleado(@PathVariable Integer id, @RequestBody Empleado empleado){
         Empleado empleadoActual = empleadoServicio.buscarEmpleadoPorId(id);
         if (empleadoActual == null)
             throw new RecursoNoEncontradoExcepcion("No se encontro el id: " + id);
@@ -60,8 +62,10 @@ public class EmpleadoControlador {
         empleadoActual.setDepartamento(empleado.getDepartamento());
         empleadoActual.setSueldo(empleado.getSueldo());
 
-        return empleadoServicio.guardarEmpleado(empleadoActual);
+        Empleado actualizado = empleadoServicio.guardarEmpleado(empleadoActual);
+        return ResponseEntity.ok(actualizado);
     }
+
 
 
 }
