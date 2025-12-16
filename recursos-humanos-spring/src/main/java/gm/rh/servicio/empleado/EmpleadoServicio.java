@@ -1,4 +1,4 @@
-package gm.rh.servicio;
+package gm.rh.servicio.empleado;
 
 import gm.rh.modelo.Empleado;
 import gm.rh.repositorio.EmpleadoRepositorio;

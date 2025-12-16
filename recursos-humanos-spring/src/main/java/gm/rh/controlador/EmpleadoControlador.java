@@ -2,7 +2,7 @@ package gm.rh.controlador;
 
 import gm.rh.excepcion.RecursoNoEncontradoExcepcion;
 import gm.rh.modelo.Empleado;
-import gm.rh.servicio.IEmpleadoServicio;
+import gm.rh.servicio.empleado.IEmpleadoServicio;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
