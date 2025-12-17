@@ -7,6 +7,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -23,8 +24,9 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
     private final Key secretKey;
 
-    public JwtTokenFilter(Key secretKey) {
+    public JwtTokenFilter(@Qualifier("jwtSecretKey") Key secretKey) {
         // aca guardo la clave con la que voy a validar la firma del token
+
         this.secretKey = secretKey;
     }
 
@@ -56,20 +58,20 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                     .parseClaimsJws(token)
                     .getBody();
 
-            // aca saco el usuario (subject del token)
-            String username = claims.getSubject();
+            // aca saco el email (lo usamos como username para spring)
+            String email = claims.getSubject();
 
-            // aca saco el rol (lo guardamos como string)
+            // aca saco el rol del token (ej: "USER", "ADMIN")
             String role = claims.get("role", String.class);
 
-            // aca creo la autoridad para spring security
+            // aca creo la autoridad que espera spring security
             SimpleGrantedAuthority authority =
                     new SimpleGrantedAuthority("ROLE_" + role);
 
             // aca creo la autenticacion para spring
             UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(
-                            username,
+                            email,
                             null,
                             List.of(authority)
                     );

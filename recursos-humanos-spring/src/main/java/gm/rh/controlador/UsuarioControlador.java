@@ -1,14 +1,13 @@
 package gm.rh.controlador;
 
-import gm.rh.excepcion.RecursoNoEncontradoExcepcion;
 import gm.rh.modelo.Usuario;
-
 import gm.rh.servicio.usuario.IUsuarioServicio;
+import gm.rh.servicio.jwt.JwtService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 
@@ -21,11 +20,15 @@ public class UsuarioControlador {
 
     @Autowired
     private IUsuarioServicio usuarioServicio;
+    
+    @Autowired
+    private JwtService jwtService;
 
 
     @PostMapping("/usuario/login")
-    public Usuario autenticarUsuario(@RequestBody Usuario usuario){
-        return usuarioServicio.autenticarUsuario(usuario.getEmail(), usuario.getPassword());
+    public String autenticarUsuario(@RequestBody Usuario usuario){
+        Usuario usuarioAutenticado = usuarioServicio.autenticarUsuario(usuario.getEmail(), usuario.getPassword());
+        return jwtService.generarToken(usuarioAutenticado.getEmail(), usuarioAutenticado.getRoles());
     }
 
     @PostMapping("/usuario/registrar")
