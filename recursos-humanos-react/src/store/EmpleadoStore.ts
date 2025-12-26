@@ -24,6 +24,7 @@ export const useEmpleadoStore = create<EmpleadoState>((set) => ({
   fetchEmpleados: async () => {
     const response = await axios.get("http://localhost:8081/rh-app/empleados")
     set({ empleados: response.data })
+
   },
 
   addEmpleado: async (empleado) => {

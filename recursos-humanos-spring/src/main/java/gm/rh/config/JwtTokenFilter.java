@@ -52,7 +52,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
         try {
             // aca valido firma y expiracion del token
-            Claims claims = Jwts.parser()
+            Claims claims = Jwts.parserBuilder()
                     .setSigningKey(secretKey)
                     .build()
                     .parseClaimsJws(token)

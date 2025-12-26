@@ -8,4 +8,5 @@ public interface IUsuarioServicio {
     //Lo tipico
     public Usuario registrarUsuario(Usuario usuario);
     public Usuario autenticarUsuario(String email, String password);
+
 }

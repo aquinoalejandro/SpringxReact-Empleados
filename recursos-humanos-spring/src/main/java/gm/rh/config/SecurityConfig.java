@@ -37,7 +37,7 @@ public class SecurityConfig {
 
                 // aca defino que endpoints son publicos y cuales no
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/rh-app/usuario/login", "/rh-app/usuario/rh-app/usuario").permitAll()
+                        .requestMatchers("/rh-app/usuario/login", "/rh-app/usuario/registrar").permitAll()
                         .anyRequest().authenticated()
                 )
 

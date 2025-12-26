@@ -32,8 +32,16 @@ public class UsuarioControlador {
     }
 
     @PostMapping("/usuario/registrar")
-    public Usuario agregarUsuario(@RequestBody Usuario usuario){
-        return usuarioServicio.registrarUsuario(usuario);
+    public String agregarUsuario(@RequestBody Usuario usuario){
+        Usuario usuarioRegistrado = usuarioServicio.registrarUsuario(usuario);
+        return jwtService.generarToken(usuarioRegistrado.getEmail(), usuarioRegistrado.getRoles());
     }
+
+    @PostMapping("/usuario/")
+    public Object traerUsuario(@RequestHeader("Authorization") String authHeader) {
+        String token = authHeader.replace("Bearer ", "").trim();
+        return jwtService.getUsuario(token);
+    }
+
 
 }
