@@ -1,11 +1,20 @@
 import React, { useEffect } from 'react'
 import axios from 'axios';
+import { api } from '../api/axios';
 import { useEmpleadoStore } from '../store/EmpleadoStore';
 
 export default function EditEmpleado() {
   const empleados = useEmpleadoStore(state => state.empleados);
-  const fetchEmpleados = useEmpleadoStore(state => state.fetchEmpleados);
   const handleDeleteEmpleado = useEmpleadoStore(state => state.handleDeleteEmpleado);
+
+  const fetchEmpleados = async () => {
+    try {
+      const response = await api.get('/empleados');
+      useEmpleadoStore.setState({ empleados: response.data });
+    } catch (error) {
+      console.error('Error al obtener empleados:', error);
+    }
+  };
 
   useEffect(() => {
     fetchEmpleados();

@@ -3,10 +3,13 @@ import { BsEnvelopeAt, BsShieldLock, BsGoogle, BsMicrosoft } from 'react-icons/b
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { BiLogIn } from 'react-icons/bi';
 import { useLoginStore } from '../store/LoginStore';
+import { useNavigate } from "react-router";
 
 export const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({ email: '', password: '' });
+
+  const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -18,9 +21,13 @@ export const Login = () => {
 
   const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-    useLoginStore.getState().handleLogin(formData);
 
+    useLoginStore.getState().handleLogin(formData);
     console.log('Datos enviados:', formData);
+    setTimeout(() => {
+      navigate('/dashboard');
+    }, 200)
+
   };
 
   return (
@@ -159,7 +166,7 @@ export const Login = () => {
           <p className="text-muted small mb-0">
             ¿Aún no tienes cuenta?
             <a href="#!" className="text-primary fw-bold ms-1 text-decoration-none">
-              Registrar empleado
+              Registrar usuario
             </a>
           </p>
         </div>

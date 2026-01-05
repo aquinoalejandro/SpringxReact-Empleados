@@ -1,13 +1,18 @@
 import React from 'react'
-//import Dashboard from './pages/protected/Dashboard'
+import { Route, Routes } from 'react-router'
 import { Login } from './pages/Login'
+import Dashboard from './pages/protected/Dashboard'
+
 
 function App() {
 
   return (
     <>
-    {/* <Dashboard></Dashboard> */ }
-    <Login/>
+    <Routes >
+      <Route path="/" element={<Login />} />
+      { /* Rutas protegidas */ }
+      <Route path="/dashboard" element={<Dashboard />} />
+    </Routes>
     </>
   )
 }

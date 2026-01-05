@@ -11,20 +11,17 @@ export interface Empleado {
 
 // aca lo que hago es que defino lo que tiene mi store
 interface EmpleadoState {
+
   empleados: Empleado[]
-  fetchEmpleados: () => Promise<void>
   addEmpleado: (empleado: Omit<Empleado, 'idEmpleado'>) => Promise<void>
   handleDeleteEmpleado: (idEmpleado: number) => Promise<void>
 }
 
 // aca lo que hago es que creo el store bien tipado
 export const useEmpleadoStore = create<EmpleadoState>((set) => ({
-  empleados: [],
 
-  fetchEmpleados: async () => {
-    const response = await api.get('/empleados')
-    set({ empleados: response.data })
-  },
+
+  empleados: [],
 
   addEmpleado: async (empleado) => {
     await api.post('/empleado', empleado)

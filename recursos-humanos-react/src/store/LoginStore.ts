@@ -25,8 +25,7 @@ export const useLoginStore = create<LoginState>((set) => ({
       {
         headers: {
           'Content-Type': 'application/json'
-        },
-        timeout: 5000
+        }
       }
     )
 
