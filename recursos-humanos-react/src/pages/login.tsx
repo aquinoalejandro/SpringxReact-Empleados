@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
-// Importamos iconos modernos de la librería 'react-icons'
-// Usamos iconos de Bootstrap (Bs) y FontAwesome (Fa) o Material (Md) según preferencia
 import { BsEnvelopeAt, BsShieldLock, BsGoogle, BsMicrosoft } from 'react-icons/bs';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { BiLogIn } from 'react-icons/bi';
+import { useLoginStore } from '../store/LoginStore';
 
 export const Login = () => {
-  // Estado para manejar la visibilidad de la contraseña
   const [showPassword, setShowPassword] = useState(false);
-
-  // Estado simple para el formulario
   const [formData, setFormData] = useState({ email: '', password: '' });
 
   const togglePasswordVisibility = () => {
@@ -22,12 +18,12 @@ export const Login = () => {
 
   const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
+    useLoginStore.getState().handleLogin(formData);
+
     console.log('Datos enviados:', formData);
-    // Aquí iría tu lógica de autenticación
   };
 
   return (
-    // Contenedor con fondo degradado moderno
     <div
       className="container-fluid d-flex justify-content-center align-items-center min-vh-100"
 
@@ -66,7 +62,7 @@ export const Login = () => {
                   value={formData.email}
                   onChange={handleInputChange}
                   required
-                  style={{ boxShadow: 'none' }} // Quita el brillo azul por defecto de bootstrap si prefieres
+                  style={{ boxShadow: 'none' }}
                 />
               </div>
             </div>

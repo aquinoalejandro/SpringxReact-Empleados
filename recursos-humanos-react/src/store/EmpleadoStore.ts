@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import axios from 'axios'
+import { api } from '../api/axios.ts'
 
 // aca lo que hago es que defino la forma de un empleado
 export interface Empleado {
@@ -11,10 +11,10 @@ export interface Empleado {
 
 // aca lo que hago es que defino lo que tiene mi store
 interface EmpleadoState {
-  handleDeleteEmpleado: any
   empleados: Empleado[]
   fetchEmpleados: () => Promise<void>
-  addEmpleado: (empleado: Omit<Empleado, "idEmpleado">) => Promise<void>
+  addEmpleado: (empleado: Omit<Empleado, 'idEmpleado'>) => Promise<void>
+  handleDeleteEmpleado: (idEmpleado: number) => Promise<void>
 }
 
 // aca lo que hago es que creo el store bien tipado
@@ -22,21 +22,19 @@ export const useEmpleadoStore = create<EmpleadoState>((set) => ({
   empleados: [],
 
   fetchEmpleados: async () => {
-    const response = await axios.get("http://localhost:8081/rh-app/empleados")
+    const response = await api.get('/empleados')
     set({ empleados: response.data })
-
   },
 
   addEmpleado: async (empleado) => {
-    await axios.post("http://localhost:8081/rh-app/empleado", empleado)
-    const response = await axios.get("http://localhost:8081/rh-app/empleados")
+    await api.post('/empleado', empleado)
+    const response = await api.get('/empleados')
     set({ empleados: response.data })
   },
 
-
-  handleDeleteEmpleado: async (idEmpleado: number) => {
-    await axios.delete(`http://localhost:8081/rh-app/empleado/${idEmpleado}`)
-    const response = await axios.get("http://localhost:8081/rh-app/empleados")
+  handleDeleteEmpleado: async (idEmpleado) => {
+    await api.delete(`/empleado/${idEmpleado}`)
+    const response = await api.get('/empleados')
     set({ empleados: response.data })
   }
 }))
