@@ -80,12 +80,12 @@ export default function AddEmpleado() {
             placeholder="Sueldo"
             value={sueldo || ""}
             onChange={e => {
-              const value = parseInt(e.target.value);
+              const value = parseFloat(e.target.value);
               setSueldo(isNaN(value) ? 0 : value);
             }}
             required
-            min="1"
-            step="1"
+            min="0.01"
+            step="0.01"
           />
           <div className="invalid-feedback">
             Por favor ingresa un sueldo válido (mayor a 0).

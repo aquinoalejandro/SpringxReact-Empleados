@@ -15,6 +15,7 @@ interface EmpleadoState {
   empleados: Empleado[]
   addEmpleado: (empleado: Omit<Empleado, 'idEmpleado'>) => Promise<void>
   handleDeleteEmpleado: (idEmpleado: number) => Promise<void>
+
 }
 
 // aca lo que hago es que creo el store bien tipado

@@ -19,16 +19,17 @@ export const Login = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: { preventDefault: () => void; }) => {
-    e.preventDefault();
+const handleSubmit = async (e: { preventDefault: () => void; }) => {
+  e.preventDefault();
 
-    useLoginStore.getState().handleLogin(formData);
-    console.log('Datos enviados:', formData);
-    setTimeout(() => {
-      navigate('/dashboard');
-    }, 200)
+  try {
+    await useLoginStore.getState().handleLogin(formData);
+    navigate('/dashboard');
+  } catch (err) {
+    console.error('error de login', err);
+  }
+};
 
-  };
 
   return (
     <div

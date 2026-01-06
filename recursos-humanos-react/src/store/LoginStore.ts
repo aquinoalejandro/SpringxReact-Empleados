@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import axios from 'axios'
+import { api } from '../api/axios'
 
 // aca lo que hago es que defino la forma del login
 interface LoginForm {
@@ -19,21 +19,8 @@ export const useLoginStore = create<LoginState>((set) => ({
   token: '',
 
   handleLogin: async (formdata) => {
-    const response = await axios.post(
-      'http://localhost:8081/rh-app/usuario/login',
-      formdata,
-      {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }
-    )
-
-    if (response.status !== 200) {
-      throw new Error('Error al iniciar sesión')
-    }
+    const response = await api.post('/usuario/login', formdata)
     set({ token: response.data })
-    console.log('Inicion Sesiada')
   },
 
   logout: () => {

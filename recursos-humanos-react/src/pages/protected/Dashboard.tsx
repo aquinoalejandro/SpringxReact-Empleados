@@ -8,6 +8,7 @@ import { api } from "../../api/axios";
 function Dashboard() {
   const [editarEmpleado, setEditarEmpleado] = useState(false);
 
+  useEffect(() => {
   const fetchEmpleados = async () => {
     try {
       const response = await api.get('/empleados');
@@ -17,12 +18,9 @@ function Dashboard() {
     }
   };
 
+  fetchEmpleados();
+}, []);
 
-  useEffect(() => {
-
-    fetchEmpleados();
-
-  }, [fetchEmpleados]);
 
 
   return (

@@ -34,7 +34,7 @@ export default function EditEmpleado() {
     };
 
     try {
-      await axios.put(`http://localhost:8081/rh-app/empleado/${idEmpleado}`, empleado);
+      await api.put(`/empleado/${idEmpleado}`, empleado);
       fetchEmpleados();
       alert('Empleado actualizado correctamente');
     } catch (error) {
